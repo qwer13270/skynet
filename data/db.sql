@@ -1,0 +1,110 @@
+CREATE TABLE satellites (
+    satellite_name VARCHAR(255) NOT NULL,
+    un_registry_country VARCHAR(255),
+    operator_country VARCHAR(255),
+    operator VARCHAR(255),
+    user_type VARCHAR(255),
+    purpose VARCHAR(255),
+    detailed_purpose TEXT,
+    orbit_class VARCHAR(255),
+    orbit_type VARCHAR(255),
+    longitude_geo FLOAT,
+    perigee INT,
+    apogee INT,
+    eccentricity FLOAT,
+    inclination FLOAT,
+    orbital_period FLOAT,
+    launch_mass INT,
+    dry_mass INT,
+    power FLOAT,
+    launch_date DATE,
+    lifetime FLOAT,
+    contractor VARCHAR(255),
+    contractor_country VARCHAR(255),
+    launch_site VARCHAR(255),
+    launch_vehicle VARCHAR(255),
+    cospar VARCHAR(255),
+    norad INT,
+    comments TEXT,
+    orbital_data_source VARCHAR(255),
+    source1 TEXT,
+    data_status SMALLINT,
+    CHECK (data_status IN (0, 1, 2)),
+    PRIMARY KEY (satellite_name)
+);
+
+
+CREATE TABLE satellite_edit_records (
+    id SERIAL PRIMARY KEY,
+    satellite_name VARCHAR(255) NOT NULL,
+    column_name VARCHAR(255) NOT NULL,
+    old_value TEXT,
+    new_value TEXT,
+    edited_by VARCHAR(255),
+    edit_time TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (satellite_name) REFERENCES public.satellites(satellite_name)
+);
+
+
+CREATE TABLE record_table (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    date TIMESTAMP,  -- Changed from VARCHAR(255)
+    satellite_name VARCHAR(255),
+    FOREIGN KEY (satellite_name) REFERENCES public.satellites(satellite_name)
+);
+
+
+INSERT INTO satellites (
+    satellite_name,
+    un_registry_country,
+    operator_country,
+    operator,
+    user_type,
+    purpose,
+    detailed_purpose,
+    orbit_class,
+    orbit_type,
+    longitude_geo,
+    perigee,
+    apogee,
+    eccentricity,
+    inclination,
+    orbital_period,
+    launch_mass,
+    dry_mass,
+    power,
+    launch_date,
+    lifetime,
+    contractor,
+    contractor_country,
+    launch_site,
+    launch_vehicle,
+    cospar,
+    norad,
+    comments,
+    orbital_data_source,
+    source1,
+    data_status
+)
+VALUES
+    ('Satellite1', 'Country1', 'CountryA', 'Operator1', 'UserTypeA', 'PurposeA', 'DetailedPurposeA', 'OrbitClassA', 'OrbitTypeA', 100.0, 200, 300, 0.1, 45.0, 90.0, 1000, 900, 5.0, '2023-01-01', 10.0, 'ContractorA', 'ContractorCountryA', 'LaunchSiteA', 'LaunchVehicleA', 'COSPAR1', 12345, 'CommentsA', 'DataSourceA', 'Source1A', 0),
+    ('Satellite2', 'Country2', 'CountryB', 'Operator2', 'UserTypeB', 'PurposeB', 'DetailedPurposeB', 'OrbitClassB', 'OrbitTypeB', 200.0, 300, 400, 0.2, 46.0, 91.0, 1100, 800, 6.0, '2023-02-01', 11.0, 'ContractorB', 'ContractorCountryB', 'LaunchSiteB', 'LaunchVehicleB', 'COSPAR2', 12346, 'CommentsB', 'DataSourceB', 'Source1B', 0),
+    ('Satellite3', 'Country3', 'CountryC', 'Operator3', 'UserTypeC', 'PurposeC', 'DetailedPurposeC', 'OrbitClassC', 'OrbitTypeC', 300.0, 400, 500, 0.3, 47.0, 92.0, 1200, 850, 7.0, '2023-03-01', 12.0, 'ContractorC', 'ContractorCountryC', 'LaunchSiteC', 'LaunchVehicleC', 'COSPAR3', 12347, 'CommentsC', 'DataSourceC', 'Source1C', 0),
+    ('Satellite4', 'Country4', 'CountryD', 'Operator4', 'UserTypeD', 'PurposeD', 'DetailedPurposeD', 'OrbitClassD', 'OrbitTypeD', 400.0, 500, 600, 0.4, 47.5, 92.5, 1300, 950, 7.5, '2023-04-01', 13.0, 'ContractorD', 'ContractorCountryD', 'LaunchSiteD', 'LaunchVehicleD', 'COSPAR4', 12348, 'CommentsD', 'DataSourceD', 'Source1D', 0),
+    ('Satellite5', 'Country5', 'CountryE', 'Operator5', 'UserTypeE', 'PurposeE', 'DetailedPurposeE', 'OrbitClassE', 'OrbitTypeE', 500.0, 600, 700, 0.5, 48.0, 93.0, 1400, 1000, 8.0, '2023-05-01', 14.0, 'ContractorE', 'ContractorCountryE', 'LaunchSiteE', 'LaunchVehicleE', 'COSPAR5', 12349, 'CommentsE', 'DataSourceE', 'Source1E', 0),
+    ('Satellite6', 'Country6', 'CountryF', 'Operator6', 'UserTypeF', 'PurposeF', 'DetailedPurposeF', 'OrbitClassF', 'OrbitTypeF', 600.0, 700, 800, 0.6, 48.5, 93.5, 1500, 1050, 8.5, '2023-06-01', 15.0, 'ContractorF', 'ContractorCountryF', 'LaunchSiteF', 'LaunchVehicleF', 'COSPAR6', 12350, 'CommentsF', 'DataSourceF', 'Source1F', 1),
+    ('Satellite7', 'Country7', 'CountryG', 'Operator7', 'UserTypeG', 'PurposeG', 'DetailedPurposeG', 'OrbitClassG', 'OrbitTypeG', 700.0, 800, 900, 0.7, 49.0, 94.0, 1600, 1100, 9.0, '2023-07-01', 16.0, 'ContractorG', 'ContractorCountryG', 'LaunchSiteG', 'LaunchVehicleG', 'COSPAR7', 12351, 'CommentsG', 'DataSourceG', 'Source1G', 0),
+    ('Satellite8', 'Country8', 'CountryH', 'Operator8', 'UserTypeH', 'PurposeH', 'DetailedPurposeH', 'OrbitClassH', 'OrbitTypeH', 800.0, 900, 1000, 0.8, 49.5, 94.5, 1700, 1150, 9.5, '2023-08-01', 17.0, 'ContractorH', 'ContractorCountryH', 'LaunchSiteH', 'LaunchVehicleH', 'COSPAR8', 12352, 'CommentsH', 'DataSourceH', 'Source1H', 1),
+    ('Satellite9', 'Country9', 'CountryI', 'Operator9', 'UserTypeI', 'PurposeI', 'DetailedPurposeI', 'OrbitClassI', 'OrbitTypeI', 900.0, 1000, 1100, 0.9, 50.0, 95.0, 1800, 1200, 10.0, '2023-09-01', 18.0, 'ContractorI', 'ContractorCountryI', 'LaunchSiteI', 'LaunchVehicleI', 'COSPAR9', 12353, 'CommentsI', 'DataSourceI', 'Source1I', 1),
+    ('Satellite10', 'Country10', 'CountryJ', 'Operator10', 'UserTypeJ', 'PurposeJ', 'DetailedPurposeJ', 'OrbitClassJ', 'OrbitTypeJ', 1000.0, 1100, 1200, 1.0, 50.5, 95.5, 1900, 1250, 10.5, '2023-10-01', 19.0, 'ContractorJ', 'ContractorCountryJ', 'LaunchSiteJ', 'LaunchVehicleJ', 'COSPAR10', 12354, 'CommentsJ', 'DataSourceJ', 'Source1J', 0),
+    ('Satellite11', 'Country11', 'CountryK', 'Operator11', 'UserTypeK', 'PurposeK', 'DetailedPurposeK', 'OrbitClassK', 'OrbitTypeK', 1100.0, 1200, 1300, 1.1, 51.0, 96.0, 2000, 1300, 11.0, '2023-11-01', 20.0, 'ContractorK', 'ContractorCountryK', 'LaunchSiteK', 'LaunchVehicleK', 'COSPAR11', 12355, 'CommentsK', 'DataSourceK', 'Source1K', 0),
+    ('Satellite12', 'Country12', 'CountryL', 'Operator12', 'UserTypeL', 'PurposeL', 'DetailedPurposeL', 'OrbitClassL', 'OrbitTypeL', 1200.0, 1300, 1400, 1.2, 51.5, 96.5, 2100, 1350, 11.5, '2023-12-01', 21.0, 'ContractorL', 'ContractorCountryL', 'LaunchSiteL', 'LaunchVehicleL', 'COSPAR12', 12356, 'CommentsL', 'DataSourceL', 'Source1L', 0),
+    ('Satellite13', 'Country13', 'CountryM', 'Operator13', 'UserTypeM', 'PurposeM', 'DetailedPurposeM', 'OrbitClassM', 'OrbitTypeM', 1300.0, 1400, 1500, 1.3, 52.0, 97.0, 2200, 1400, 12.0, '2024-01-01', 22.0, 'ContractorM', 'ContractorCountryM', 'LaunchSiteM', 'LaunchVehicleM', 'COSPAR13', 12357, 'CommentsM', 'DataSourceM', 'Source1M', 0),
+    ('Satellite14', 'Country14', 'CountryN', 'Operator14', 'UserTypeN', 'PurposeN', 'DetailedPurposeN', 'OrbitClassN', 'OrbitTypeN', 1400.0, 1500, 1600, 1.4, 52.5, 97.5, 2300, 1450, 12.5, '2024-02-01', 23.0, 'ContractorN', 'ContractorCountryN', 'LaunchSiteN', 'LaunchVehicleN', 'COSPAR14', 12358, 'CommentsN', 'DataSourceN', 'Source1N', 1),
+    ('Satellite15', 'Country15', 'CountryO', 'Operator15', 'UserTypeO', 'PurposeO', 'DetailedPurposeO', 'OrbitClassO', 'OrbitTypeO', 1500.0, 1600, 1700, 1.5, 53.0, 98.0, 2400, 1500, 13.0, '2024-03-01', 24.0, 'ContractorO', 'ContractorCountryO', 'LaunchSiteO', 'LaunchVehicleO', 'COSPAR15', 12359, 'CommentsO', 'DataSourceO', 'Source1O', 0),
+    ('Satellite16', 'Country16', 'CountryP', 'Operator16', 'UserTypeP', 'PurposeP', 'DetailedPurposeP', 'OrbitClassP', 'OrbitTypeP', 1600.0, 1700, 1800, 1.6, 53.5, 98.5, 2500, 1550, 13.5, '2024-04-01', 25.0, 'ContractorP', 'ContractorCountryP', 'LaunchSiteP', 'LaunchVehicleP', 'COSPAR16', 12360, 'CommentsP', 'DataSourceP', 'Source1P', 0),
+    ('Satellite17', 'Country17', 'CountryQ', 'Operator17', 'UserTypeQ', 'PurposeQ', 'DetailedPurposeQ', 'OrbitClassQ', 'OrbitTypeQ', 1700.0, 1800, 1900, 1.7, 54.0, 99.0, 2600, 1600, 14.0, '2024-05-01', 26.0, 'ContractorQ', 'ContractorCountryQ', 'LaunchSiteQ', 'LaunchVehicleQ', 'COSPAR17', 12361, 'CommentsQ', 'DataSourceQ', 'Source1Q', 1),
+    ('Satellite18', 'Country18', 'CountryR', 'Operator18', 'UserTypeR', 'PurposeR', 'DetailedPurposeR', 'OrbitClassR', 'OrbitTypeR', 1800.0, 1900, 2000, 1.8, 54.5, 99.5, 2700, 1650, 14.5, '2024-06-01', 27.0, 'ContractorR', 'ContractorCountryR', 'LaunchSiteR', 'LaunchVehicleR', 'COSPAR18', 12362, 'CommentsR', 'DataSourceR', 'Source1R', 0),
+    ('Satellite19', 'Country19', 'CountryS', 'Operator19', 'UserTypeS', 'PurposeS', 'DetailedPurposeS', 'OrbitClassS', 'OrbitTypeS', 1900.0, 2000, 2100, 1.9, 55.0, 100.0, 2800, 1700, 15.0, '2024-07-01', 28.0, 'ContractorS', 'ContractorCountryS', 'LaunchSiteS', 'LaunchVehicleS', 'COSPAR19', 12363, 'CommentsS', 'DataSourceS', 'Source1S', 0),
+    ('Satellite20', 'Country20', 'CountryT', 'Operator20', 'UserTypeT', 'PurposeT', 'DetailedPurposeT', 'OrbitClassT', 'OrbitTypeT', 2000.0, 2100, 2200, 2.0, 55.5, 100.5, 2900, 1750, 15.5, '2024-08-01', 29.0, 'ContractorT', 'ContractorCountryT', 'LaunchSiteT', 'LaunchVehicleT', 'COSPAR20', 12364, 'CommentsT', 'DataSourceT', 'Source1T', 1)

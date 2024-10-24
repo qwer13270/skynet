@@ -1,0 +1,16 @@
+DB_USER='skynetapp'
+DB_PASSWORD='skynet'
+DB_HOST='localhost'
+DB_PORT=5432
+DB_NAME='skynet'
+
+#username
+DB_USER='username'
+#password
+DB_PASSWORD='password'
+#host
+DB_HOST='host' #usually localhost
+#port number
+DB_PORT=5432
+#database name
+DB_NAME='databasename'
